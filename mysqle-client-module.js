@@ -115,9 +115,9 @@ class mysqle {
     }
   }
 
-  socketOn () {
+  async socketOn () {
     if (!this.socketConnected()) {
-      this.socket = io(this.uriGet(), {
+      this.socket = await io(this.uriGet(), {
         cookie: false
       })
       return true
