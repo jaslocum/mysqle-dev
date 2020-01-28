@@ -308,5 +308,4 @@ class mysqle {
 
 }
 
-
 module.exports = mysqle
