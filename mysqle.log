@@ -1,0 +1,4 @@
+
+> mysqle@0.6.0 start C:\cygwin64\var\lib\sftvm\mysqle
+> node mysqle-server.js
+
