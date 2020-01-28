@@ -38,9 +38,9 @@ class mysqle {
     }
   }
 
-  connect(connect) {
+  async connect(connect) {
     if (this.config(connect)) {
-      if (this.socketOn()) {
+      if (await this.socketOn()) {
         this.listen()
         return true
       } else {
