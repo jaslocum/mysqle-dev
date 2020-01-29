@@ -3,14 +3,13 @@ const io = require('socket.io-client')
 
 class mysqle {
 
-  constructor(connect, certString = null) {
+  constructor(connect) {
     this.socket = null
     this.mysqleEvents = {}
     this.mysqleUri = null
     this.mysqleId = null
     this.mysqleStatus = {}
     this.mysqleConnected = 0
-    this.cert = certString
     if (this.connect(connect)) {
       return true
     } else {
@@ -121,12 +120,7 @@ class mysqle {
     let options = {}
     if (!this.socketConnected()) {
       options.cookie = false
-      if (
-        this.cert !== 'undefined' &&
-        this.cert !== null
-      ) {
-        options.ca = this.cert
-      }
+      options.rejectUnauthorized = false
       this.socket = await io(this.uriGet(), options)
       return true
     } else {

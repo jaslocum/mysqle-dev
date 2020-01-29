@@ -4,7 +4,6 @@ const TableMap = require('./tablemap')
 const Common = require('./common.js')
 const {parse, stringify} = require('flatted/cjs')
 
-/*
 const fs = require('fs')
 const path = require('path')
 const https = require('https')
@@ -16,11 +15,10 @@ const serverHttps = https.createServer({
   key: key,
   cert: cert
 }, app).listen(portHttps)
-*/
 
 // socketio connects to port to serve events to client subscribers
-// let io = require('socket.io').listen(serverHttps, { cookie: false })
-let io = require('socket.io').listen(Config.port)
+let io = require('socket.io').listen(serverHttps, { cookie: false })
+
 
 // count reconnection attempts
 let connectAttempts = 0
