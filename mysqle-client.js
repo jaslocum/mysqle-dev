@@ -1,3 +1,4 @@
+const Common = require('./common.js')
 const io = require('socket.io-client')
 
 class mysqle {
@@ -291,6 +292,7 @@ class mysqle {
   listen () {
     if (this.socketIsSet()) {
       this.socket.on('connect', () => {
+        Common.log('mysqle-client listen socket.on connect id: ' + this.socket.id)
         let currentdate = new Date().toLocaleString()
         this.statusSet('connected_at', currentdate)
         this.connectedInc()

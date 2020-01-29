@@ -179,11 +179,12 @@ function emitEvent (client, eventName, eventData) {
 let socketCount = 0  
 
 io.sockets.on('connection', (socket) => {
-  let client = socket.id  
+  let client = socket.id
+  Common.log('mysqle-server sockets.on connection id: ' + client)
   socket.on('events', (events) => {
     Common.log('io.socket.on: client, events: ' + client + ', ' + events)
-    Mysqle.setClient(client, events)  
-  })  
+    Mysqle.setClient(client, events)
+  })
   socket.on('status', (status) => {
     let currentdate = new Date().toLocaleString()   
     if (status !== null && Object.keys(status).length > 0) {
