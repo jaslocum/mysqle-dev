@@ -110,7 +110,7 @@ function binlogEvent(event) {
             old: eventRow.before
           }
         )
-        Common.log('mysqle-server binlogEvent updaterows event: ' + stringify(Mysqle.get(), null, 2))
+        // Common.log('mysqle-server binlogEvent updaterows event: ' + stringify(Mysqle.get(), null, 2))
         emitRowEvents()
         for (let column in Mysqle.data()) {
           if (Mysqle.data()[column] !== Mysqle.old()[column]) {
@@ -131,7 +131,7 @@ function binlogEvent(event) {
         }
       )
       // emit database events for delete
-      Common.log('mysqle-server binlogEvent deleterows event: ' + stringify(Mysqle.get(), null, 2))
+      // Common.log('mysqle-server binlogEvent deleterows event: ' + stringify(Mysqle.get(), null, 2))
       emitRowEvents()  
       for (let column in Mysqle.old()) {    
         emitColumnEvents(column)   
