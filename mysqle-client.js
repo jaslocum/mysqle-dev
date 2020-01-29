@@ -3,13 +3,14 @@ const io = require('socket.io-client')
 
 class mysqle {
 
-  constructor(connect) {
+  constructor(connect, certString = null) {
     this.socket = null
     this.mysqleEvents = {}
     this.mysqleUri = null
     this.mysqleId = null
     this.mysqleStatus = {}
     this.mysqleConnected = 0
+    this.cert = certString
     if (this.connect(connect)) {
       return true
     } else {
@@ -117,10 +118,16 @@ class mysqle {
   }
 
   async socketOn () {
+    let options = {}
     if (!this.socketConnected()) {
-      this.socket = await io(this.uriGet(), {
-        cookie: false
-      })
+      options.cookie = false
+      if (
+        this.cert !== 'undefined' &&
+        this.cert !== null
+      ) {
+        options.ca = this.cert
+      }
+      this.socket = await io(this.uriGet(), options)
       return true
     } else {
       return false
@@ -292,10 +299,10 @@ class mysqle {
   listen () {
     if (this.socketIsSet()) {
       this.socket.on('connecting', () => {
-        Common.log('mysqle-client listen socket.on connecting')
+        Common.log('mysqle-client listen connecting')
       })
       this.socket.on('connect', () => {
-        Common.log('mysqle-client listen socket.on connect id: ' + this.socket.id)
+        Common.log('mysqle-client listen connected socket.id: ' + this.socket.id)
         let currentdate = new Date().toLocaleString()
         this.statusSet('connected_at', currentdate)
         this.connectedInc()
