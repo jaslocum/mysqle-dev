@@ -292,7 +292,7 @@ class mysqle {
   listen () {
     if (this.socketIsSet()) {
       this.socket.on('connecting', () => {
-        Common.log('mysqle-client listen socket.on connecting: ')
+        Common.log('mysqle-client listen socket.on connecting')
       })
       this.socket.on('connect', () => {
         Common.log('mysqle-client listen socket.on connect id: ' + this.socket.id)
