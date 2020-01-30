@@ -1,5 +1,5 @@
 const Common = require('./common.js')
-const io = require('engine.io-client')
+const io = require('socket.io-client')
 const fs = require('fs');
 
 class mysqle {
@@ -123,18 +123,12 @@ class mysqle {
     let uri = this.uriGet()
     if (!this.socketConnected()) {
       options.cookie = false
-      options.transports = ['websocket']
-      options.upgrade = false
-      if (this.certPath === null) {
-        options.rejectUnauthorized = false
-      } else {
-        options.rejectUnauthorized = true
-        options.ca = fs.readFileSync(this.certPath)
-      }
+      // browser handles secure connection
+      // node.js causes XHR polling error
       if (typeof process === 'object') {
-        options.forceNode = true
+        options.rejectUnauthorized = false
       }
-      this.socket = await io(uri, options)
+      this.socket = io(uri, options)
       return true
     } else {
       return false
