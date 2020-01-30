@@ -1,15 +1,17 @@
 const Common = require('./common.js')
-const io = require('socket.io-client')
+const io = require('engine.io-client')
+const fs = require('fs');
 
 class mysqle {
 
-  constructor(connect) {
+  constructor(connect, path = null) {
     this.socket = null
     this.mysqleEvents = {}
     this.mysqleUri = null
     this.mysqleId = null
     this.mysqleStatus = {}
     this.mysqleConnected = 0
+    this.certPath = path
     if (this.connect(connect)) {
       return true
     } else {
@@ -118,10 +120,21 @@ class mysqle {
 
   async socketOn () {
     let options = {}
+    let uri = this.uriGet()
     if (!this.socketConnected()) {
       options.cookie = false
-      options.rejectUnauthorized = false
-      this.socket = await io(this.uriGet(), options)
+      options.transports = ['websocket']
+      options.upgrade = false
+      if (this.certPath === null) {
+        options.rejectUnauthorized = false
+      } else {
+        options.rejectUnauthorized = true
+        options.ca = fs.readFileSync(this.certPath)
+      }
+      if (typeof process === 'object') {
+        options.forceNode = true
+      }
+      this.socket = await io(uri, options)
       return true
     } else {
       return false
@@ -296,7 +309,7 @@ class mysqle {
         Common.log('mysqle-client listen connecting')
       })
       this.socket.on('connect', () => {
-        Common.log('mysqle-client listen connected socket.id: ' + this.socket.id)
+        Common.log('mysqle-client listen socket.id: ' + this.socket.id)
         let currentdate = new Date().toLocaleString()
         this.statusSet('connected_at', currentdate)
         this.connectedInc()
@@ -305,6 +318,16 @@ class mysqle {
           this.socketsSet(sockets)
           this.statusEmit()
         })
+      })
+      this.socket.on('connect_error', (err) => {
+        Common.log('mysqle-client error: ')
+        Common.log('description: ' + err.description)
+        Common.log('type: ' + err.type)
+        Common.log('message: ' + err.message)
+        Common.log('stack: ' + err.stack)
+      })
+      this.socket.on('error', (err) => {
+        Common.log('mysqle-client listen ' + err)
       })
       return true
     } else {
