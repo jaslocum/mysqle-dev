@@ -14,7 +14,7 @@ let config = {
   /*
     must be specified and unique for each instance of ZongJi reading binlog events for database
   */
-  serverId: 12,
+  serverId: 14,
   
   /*
     port for event clients to connect to
