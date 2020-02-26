@@ -1,4 +1,4 @@
-let config = require('./config')
+let config = require('./config.js')
 
 let Common = {
   log (message = null) {
