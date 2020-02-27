@@ -1,4 +1,3 @@
-// const path = require('path')
 const config = require('./mysqle-config.js');
 
 let Common = {

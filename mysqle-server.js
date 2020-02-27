@@ -2,8 +2,6 @@ const Mysqle = require('./mysqle')
 const Config = require('./mysqle-config')
 const TableMap = require('./tablemap')
 const Common = require('./common.js')
-const {parse, stringify} = require('flatted/cjs')
-
 const fs = require('fs')
 const path = require('path')
 const https = require('https')
