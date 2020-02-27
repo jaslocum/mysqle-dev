@@ -1,4 +1,4 @@
-const config = require('./mysqle-config.js');
+const config = require('./config.js');
 
 let Common = {
   log (message = null) {

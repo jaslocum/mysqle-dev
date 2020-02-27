@@ -1,5 +1,4 @@
 // const path = require('path')
-const Common = require('./common.js')
 const io = require('socket.io-client')
 
 class mysqle {
@@ -300,10 +299,10 @@ class mysqle {
   listen () {
     if (this.socketIsSet()) {
       this.socket.on('connecting', () => {
-        Common.log('mysqle-client listen connecting')
+        // console.log('mysqle-client listen connecting')
       })
       this.socket.on('connect', () => {
-        Common.log('mysqle-client listen socket.id: ' + this.socket.id)
+        // console.log('mysqle-client listen socket.id: ' + this.socket.id)
         let currentdate = new Date().toLocaleString()
         this.statusSet('connected_at', currentdate)
         this.connectedInc()
@@ -314,14 +313,14 @@ class mysqle {
         })
       })
       this.socket.on('connect_error', (err) => {
-        Common.log('mysqle-client error: ')
-        Common.log('description: ' + err.description)
-        Common.log('type: ' + err.type)
-        Common.log('message: ' + err.message)
-        Common.log('stack: ' + err.stack)
+        // console.log('mysqle-client error: ')
+        // console.log('description: ' + err.description)
+        // console.log('type: ' + err.type)
+        // console.log('message: ' + err.message)
+        // console.log('stack: ' + err.stack)
       })
       this.socket.on('error', (err) => {
-        Common.log('mysqle-client listen ' + err)
+        // console.log('mysqle-client listen ' + err)
       })
       return true
     } else {
