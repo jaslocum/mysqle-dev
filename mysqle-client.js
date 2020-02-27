@@ -1,6 +1,5 @@
-const Common = require('./common.js')
+const Common = require('common.js')
 const io = require('socket.io-client')
-const fs = require('fs');
 
 class mysqle {
 
