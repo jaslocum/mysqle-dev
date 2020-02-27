@@ -17,8 +17,7 @@ const serverHttps = https.createServer({
 }, app).listen(portHttps)
 
 // socketio connects to port to serve events to client subscribers
-let io = require('socket.io').listen(serverHttps, { cookie: false })
-
+let io = require('socket.io').listen(serverHttps)
 
 // count reconnection attempts
 let connectAttempts = 0

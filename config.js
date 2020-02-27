@@ -7,7 +7,7 @@ let config = {
     host: 'eagle',
     port: '3306',
     user: 'repl',
-    password: 'secret',
+    password: 'trudr8b4',
     timezone: 480
   },
 
