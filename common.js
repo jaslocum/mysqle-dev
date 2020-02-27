@@ -1,5 +1,5 @@
-const path = require('path')
-const config = require(path.resolve('./mysqle-config.js'));
+// const path = require('path')
+const config = require('./mysqle-config.js');
 
 let Common = {
   log (message = null) {
