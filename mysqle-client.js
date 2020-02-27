@@ -1,5 +1,5 @@
-const path = require('path')
-const Common = require(path.resolve('./', 'common.js'))
+// const path = require('path')
+const Common = require('./common.js')
 const io = require('socket.io-client')
 
 class mysqle {
