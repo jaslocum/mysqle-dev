@@ -16,6 +16,7 @@ const serverHttps = https.createServer({
   cert: cert
 }, app).listen(portHttps)
 
+
 // socketio connects to port to serve events to client subscribers
 let io = require('socket.io').listen(serverHttps)
 
