@@ -9,7 +9,7 @@ class Mysqle {
     this.mysqleUri = null
     this.mysqleId = null
     this.mysqleStatus = {}
-    this.mysqleConnected = 0
+    this.mysqleConnected = 1
     if (this.connect(connect)) {
       return true
     } else {
