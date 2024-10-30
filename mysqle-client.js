@@ -329,4 +329,4 @@ class Mysqle {
 
 }
 
-export default new Mysqle()
+export default Mysqle
