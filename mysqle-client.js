@@ -1,16 +1,15 @@
 // const path = require('path')
-const io = require('socket.io-client')
+import { io } from 'socket.io-client'
 
-class mysqle {
+class Mysqle {
 
-  constructor(connect, path = null) {
+  constructor(connect) {
     this.socket = null
     this.mysqleEvents = {}
     this.mysqleUri = null
     this.mysqleId = null
     this.mysqleStatus = {}
     this.mysqleConnected = 0
-    this.certPath = path
     if (this.connect(connect)) {
       return true
     } else {
@@ -330,4 +329,4 @@ class mysqle {
 
 }
 
-module.exports = mysqle
+export default new Mysqle()
