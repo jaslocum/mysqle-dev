@@ -1,6 +1,6 @@
 {
   "name": "mysqle",
-  "version": "0.7.2a",
+  "version": "0.7.3",
   "description": "mysql change event server",
   "port": "3307",
   "author": "Jack Slocum",
