@@ -1,7 +1,7 @@
 // const path = require('path')
 import { io } from 'socket.io-client'
 
-export default Mysqle({
+export default class Mysqle {
   constructor(connect) {
     this.socket = null
     this.mysqleEvents = {}
@@ -14,7 +14,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   on(event, callback) {
     this.eventAdd(event)
     if (this.socketIsSet()) {
@@ -24,7 +24,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   off(event) {
     if (this.eventIsSet(event)) {
       this.socket.off(event)
@@ -34,7 +34,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   async connect(connect) {
     if (this.config(connect)) {
       if (await this.socketOn()) {
@@ -46,7 +46,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   disconnect() {
     if (this.socketConnected()) {
       this.socketOff()
@@ -55,35 +55,35 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   config(config) {
     this.uriSet(config)
     return this.configGet()
-  },
+  }
   uri(uri) {
     this.uriSet(uri)
     return this.uriGet()
-  },
+  }
   id() {
     return this.idGet()
-  },
+  }
   eventsArray() {
     if (this.eventsIsSet()) {
       return Object.keys(this.eventsGet())
     } else {
       return null
     }
-  },
+  }
   eventsString() {
     return JSON.stringify(this.eventsGet())
-  },
+  }
   status() {
     if (this.statusEmit()) {
       return this.mysqleStatus
     } else {
       return null
     }
-  },
+  }
   socketConnected () {
     if (this.socketIsSet()) {
       if (this.idIsSet()) {
@@ -94,14 +94,14 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   socketIsSet () {
     if (this.socket != null) {
       return true
     } else {
       return false
     }
-  },
+  }
   async socketOn () {
     let options = {}
     let uri = this.uriGet()
@@ -117,7 +117,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   socketOff () {
     if (this.socketConnected()) {
       this.socket.disconnect()
@@ -126,12 +126,12 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   connectedInc () {
     this.mysqleConnected++
     this.statusSet('connected', this.mysqleConnected)
     return true
-  },
+  }
   socketsSet (sockets) {
     if (typeof sockets !== 'undefined') {
       this.statusSet('sockets', sockets)
@@ -139,14 +139,14 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   uriGet () {
     if (this.mysqleUri != null) {
       return this.mysqleUri
     } else {
       return null
     }
-  },
+  }
   uriSet (uri) {
     if (typeof uri !== 'undefined' &&
       typeof uri === 'string') {
@@ -156,21 +156,21 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   configGet () {
     let config = {
-      uri: this.uriGet(),
+      uri: this.uriGet()
       events: this.eventsArray()
     }
     return config
-  },
+  }
   idGet () {
     if (this.idIsSet()) {
       return this.mysqleId
     } else {
       return null
     }
-  },
+  }
   idIsSet () {
     if (typeof this.mysqleId === 'string' &&
       this.mysqleId.length > 0) {
@@ -178,7 +178,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   eventAdd (event) {
     if (event != null) {
       this.mysqleEvents[event] = true
@@ -187,7 +187,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   eventRemove (event) {
     if (event != null) {
       delete this.mysqleEvents[event]
@@ -196,7 +196,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   eventIsSet (event) {
     if (typeof event === 'string') {
       if (this.eventsIsSet()) {
@@ -211,19 +211,19 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   eventsClear () {
     this.mysqleEvents = {}
     this.statusSet('events', this.eventsString())
     return true
-  },
+  }
   eventsGet () {
     if (this.eventsIsSet()) {
       return this.mysqleEvents
     } else {
       return null
     }
-  },
+  }
   eventsIsSet () {
     if (this.mysqleEvents != null &&
       Object.keys(this.mysqleEvents).length > 0) {
@@ -231,10 +231,10 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   eventsEmit () {
     this.socket.emit('events', this.eventsArray())
-  },
+  }
   setId (id) {
     if (id != null) {
       this.mysqleId = id
@@ -243,7 +243,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   statusSet (key, value) {
     if (key != null &&
       typeof value !== 'undefined') {
@@ -252,7 +252,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   statusEmit () {
     if (typeof this.mysqleStatus !== 'undefined' &&
       Object.keys(this.mysqleStatus).length > 0) {
@@ -261,7 +261,7 @@ export default Mysqle({
     } else {
       return false
     }
-  },
+  }
   listen () {
     if (this.socketIsSet()) {
       this.socket.on('connecting', () => {
@@ -293,4 +293,4 @@ export default Mysqle({
       return false
     }
   }
-})
+}
