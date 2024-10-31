@@ -159,7 +159,7 @@ class Mysqle {
   }
   configGet () {
     let config = {
-      uri: this.uriGet()
+      uri: this.uriGet(),
       events: this.eventsArray()
     }
     return config
